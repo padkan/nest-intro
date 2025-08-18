@@ -1,0 +1,16 @@
+PATCH http:localhost:3000/posts
+Content-Type: application/json
+
+{
+    "id": 9,
+    "title": "what 's new with nextjs with type script",
+    "content": "Updated Post Content",
+    "status": "draft",
+    "slug": "whats-new-with-nextjs-with-typescript",
+    "featuredImageUrl": "http://example.com/featured-image.jpg",
+    "publishedOn": "2023-10-01",
+    "metaOptions": {
+        "metaValue": "{\"sidebarEnabled\": true, \"footerActive\": true}"
+    },
+    "tags": [1, 2]
+}
