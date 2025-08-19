@@ -1,4 +1,10 @@
-import { Body, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Injectable,
+  NotFoundException,
+  RequestTimeoutException,
+} from '@nestjs/common';
 import { UsersService } from 'src/users/providers/users.service';
 import { CreatePostDto } from '../dtos/create-post-dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -80,13 +86,32 @@ export class PostsService {
 
   public async update(patchPostDto: PatchPostDto) {
     let tags: Tag[] = [];
-    if (patchPostDto.tags) {
-      tags = await this.tagsService.findMultipleTags(patchPostDto.tags);
+    let post = undefined;
+    try {
+      if (patchPostDto.tags) {
+        tags = await this.tagsService.findMultipleTags(patchPostDto.tags);
+      }
+    } catch (error) {
+      throw new RequestTimeoutException(
+        'Unable to process your request at the moment, please try later',
+      );
     }
-    const post = await this.postsRepository.findOneBy({ id: patchPostDto.id });
-
+    if (
+      !patchPostDto.tags ||
+      !tags ||
+      tags.length !== patchPostDto.tags.length
+    ) {
+      throw new BadRequestException('Some tags not found');
+    }
+    try {
+      post = await this.postsRepository.findOneBy({ id: patchPostDto.id });
+    } catch (error) {
+      throw new RequestTimeoutException(
+        'Unable to process your request at the moment, please try later',
+      );
+    }
     if (!post) {
-      throw new NotFoundException('Post not found');
+      throw new BadRequestException('Post not found');
     }
 
     post.title = patchPostDto.title ?? post.title;
@@ -97,7 +122,14 @@ export class PostsService {
       patchPostDto.featuredImageUrl ?? post.featuredImageUrl;
     post.publishedOn = patchPostDto.publishedOn ?? post.publishedOn;
     post.tags = tags;
+    try {
+      await this.postsRepository.save(post);
+    } catch (error) {
+      throw new RequestTimeoutException(
+        'Unable to process your request at the moment, please try later',
+      );
+    }
 
-    return await this.postsRepository.save(post);
+    return post;
   }
 }
