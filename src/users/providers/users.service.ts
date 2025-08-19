@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { AuthService } from './../../auth/providers/auth.service';
 import { GetUsersParamDto } from './../dtos/get-users-param.dto';
 import {
@@ -14,6 +14,9 @@ import { User } from '../user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ConfigService, ConfigType } from '@nestjs/config';
 import profileConfig, { ProfileConfigType } from '../config/profile.config';
+import { CreateUserDto } from '../dtos/create-user.dto';
+import { UsersCreateManyProvider } from './users-create-many.provider';
+import { CreateUserManyDto } from '../dtos/create-user-many.dto';
 
 @Injectable()
 export class UsersService {
@@ -26,6 +29,9 @@ export class UsersService {
     private configService: ConfigService,
     @Inject(profileConfig.KEY)
     private readonly profileConfig: ProfileConfigType,
+
+    private readonly datasource: DataSource,
+    private readonly usersCreateManyProvider: UsersCreateManyProvider,
   ) {}
 
   public async createUser(createUserDto: any) {
@@ -116,5 +122,9 @@ export class UsersService {
       throw new BadRequestException('User not found');
     }
     return user;
+  }
+
+  public async createMany(createUserManyDto: CreateUserManyDto) {
+    return await this.usersCreateManyProvider.createMany(createUserManyDto);
   }
 }
