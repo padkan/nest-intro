@@ -12,5 +12,5 @@ Content-Type: application/json
     "metaOptions": {
         "metaValue": "{\"sidebarEnabled\": true, \"footerActive\": true}"
     },
-    "tags": [1, 2]
+    "tags": [1, 3]
 }

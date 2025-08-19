@@ -3,7 +3,9 @@ import { AuthService } from './../../auth/providers/auth.service';
 import { GetUsersParamDto } from './../dtos/get-users-param.dto';
 import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { User } from '../user.entity';
-import { InjectRepository } from '@nestjs/typeorm/dist/common/typeorm.decorators';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ConfigService, ConfigType } from '@nestjs/config';
+import profileConfig, { ProfileConfigType } from '../config/profile.config';
 
 @Injectable()
 export class UsersService {
@@ -13,6 +15,9 @@ export class UsersService {
     // inject user repository
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private configService: ConfigService,
+    @Inject(profileConfig.KEY)
+    private readonly profileConfig: ProfileConfigType,
   ) {}
 
   public async createUser(createUserDto: any) {
@@ -32,6 +37,13 @@ export class UsersService {
     limit: number,
     page: number,
   ) {
+    // Use configService to get S3 bucket name
+    const s3Bucket = this.configService.get<string>('S3_BUCKET');
+    console.log(`S3 Bucket: ${s3Bucket}`);
+
+    console.log(`Profile API Key: ${this.profileConfig.apiKey}`);
+
+    // Use authService to check if the user is authenticated
     const isAuth = this.authService.isAuth();
     console.log(`Is Authenticated: ${isAuth}`);
     console.log(`Params: `, getUsersParamDto);
