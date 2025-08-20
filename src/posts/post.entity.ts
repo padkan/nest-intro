@@ -76,7 +76,7 @@ export class Post {
     type: 'timestamp',
     nullable: true,
   })
-  publishedOn?: Date;
+  publishedOn?: Date | null;
 
   @OneToOne(() => MetaOption, (metaOptions) => metaOptions.post, {
     cascade: true,

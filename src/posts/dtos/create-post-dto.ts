@@ -13,6 +13,7 @@ import {
   MaxLength,
   IsInt,
   isNotEmpty,
+  IsDateString,
 } from 'class-validator';
 import { postStatus } from '../enums/postStatus.enum';
 import { postType } from '../enums/postType.enum';
@@ -94,8 +95,8 @@ export class CreatePostDto {
     description: 'The date and time when the post was published',
   })
   @IsOptional()
-  @IsISO8601()
-  publishedOn?: Date;
+  @IsDateString() // 👈 automatically converts string → Date
+  publishedOn?: Date | null;
 
   @ApiProperty({
     example: [1, 2],
