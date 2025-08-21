@@ -11,4 +11,8 @@ export default Joi.object({
   DATABASE_NAME: Joi.string().required(),
   S3_BUCKET: Joi.string().required(),
   PROFILE_API_KEY: Joi.string().required(),
+  JWT_SECRET: Joi.string().required(),
+  JWT_TOKEN_AUDIENCE: Joi.string().default('nestjs-intro'),
+  JWT_TOKEN_ISSUER: Joi.string().default('nestjs-intro'),
+  JWT_TOKEN_EXPIRES_IN: Joi.number().default('1d'),
 });

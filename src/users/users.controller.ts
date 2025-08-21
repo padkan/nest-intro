@@ -19,17 +19,24 @@ import { PatchUserDto } from './dtos/patch-user.dto';
 import { UsersService } from './providers/users.service';
 import { ApiTags, ApiQuery, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CreateUserManyDto } from './dtos/create-user-many.dto';
+import { UseGuards } from '@nestjs/common';
+import { AccessTokenGuard } from 'src/auth/guards/access-token/access-token.guard';
+import { AuthType } from 'src/auth/enums/auth-type.enum';
+import { Auth } from 'src/auth/decorators/auth.decorator';
 
 @Controller('users')
 @ApiTags('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  //@metadata('authType', 'none')
+  @Auth(AuthType.None)
   @Post()
   public createUser(@Body() createUserDto: CreateUserDto) {
     return this.usersService.createUser(createUserDto);
   }
 
+  //@UseGuards(AccessTokenGuard)
   @Post('create-many')
   public createManyUsers(@Body() createUserManyDto: CreateUserManyDto) {
     return this.usersService.createMany(createUserManyDto);

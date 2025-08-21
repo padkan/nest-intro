@@ -4,8 +4,7 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "lib": ["ES2023", "DOM"],
-    "types": ["jest", "node"],
-
+    "types": ["jest", "node", "express"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
