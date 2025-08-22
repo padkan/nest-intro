@@ -1,3 +1,4 @@
+import { CreatePostProvider } from './create-post.provider';
 import {
   BadRequestException,
   Body,
@@ -17,6 +18,7 @@ import { PatchPostDto } from '../dtos/patch-post.dto';
 import { GetPostDto } from '../dtos/get-post.dto';
 import { PaginationProvider } from 'src/common/pagination/providers/pagination-provider';
 import { Paginated } from 'src/common/pagination/interfaces/paginated.interface';
+import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 
 @Injectable()
 export class PostsService {
@@ -27,36 +29,38 @@ export class PostsService {
     private readonly metaOptionsRepository: Repository<MetaOption>,
     private readonly tagsService: TagsService,
     private readonly paginationProvider: PaginationProvider,
+    private readonly createPostProvider: CreatePostProvider,
   ) {}
 
-  public async create(@Body() createPostDto: CreatePostDto) {
-    let tags: Tag[] = [];
+  public async create(createPostDto: CreatePostDto, user: ActiveUserData) {
+    return await this.createPostProvider.create(createPostDto, user);
+    //let tags: Tag[] = [];
     // const metaOptions = createPostDto.metaOptions
     //   ? this.metaOptionsRepository.create(createPostDto.metaOptions)
     //   : null;
     // if (metaOptions) {
     //   await this.metaOptionsRepository.save(metaOptions);
     // }
-    if (createPostDto.tags) {
-      tags = await this.tagsService.findMultipleTags(createPostDto.tags);
-    }
+    // if (createPostDto.tags) {
+    //   tags = await this.tagsService.findMultipleTags(createPostDto.tags);
+    // }
 
-    const author = await this.usersService.findOneById(createPostDto.authorId);
-    if (!author) {
-      throw new NotFoundException('Author not found');
-    }
-    const post = this.postsRepository.create({
-      ...createPostDto,
-      author,
-      tags,
-    });
+    // const author = await this.usersService.findOneById(createPostDto.authorId);
+    // if (!author) {
+    //   throw new NotFoundException('Author not found');
+    // }
+    // const post = this.postsRepository.create({
+    //   ...createPostDto,
+    //   author,
+    //   tags,
+    // });
 
     // if (metaOptions) {
     //   post.metaOptions = metaOptions;
     // }
     //post.user = await this.usersService.findOneById(1);
 
-    return await this.postsRepository.save(post);
+    //return await this.postsRepository.save(post);
   }
 
   public async findAll(

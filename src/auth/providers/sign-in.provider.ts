@@ -10,6 +10,7 @@ import { UsersService } from 'src/users/providers/users.service';
 import { JwtService } from '@nestjs/jwt';
 import jwtConfig from '../config/jwt.config';
 import { ConfigType } from '@nestjs/config';
+import { ActiveUserData } from '../interfaces/active-user-data.interface';
 
 @Injectable()
 export class SignInProvider {
@@ -28,7 +29,7 @@ export class SignInProvider {
     private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
   ) {}
   public async signIn(signInDto: SignInDto) {
-    let user = await this.usersService.findOneByEmail(signInDto.email);
+    const user = await this.usersService.findOneByEmail(signInDto.email);
     if (!user) {
       throw new RequestTimeoutException('User not found');
     }
@@ -48,7 +49,7 @@ export class SignInProvider {
       {
         email: user.email,
         sub: user.id,
-      },
+      } as ActiveUserData,
       {
         audience: this.jwtConfiguration.audience,
         expiresIn: this.jwtConfiguration.accessTokenTtl,

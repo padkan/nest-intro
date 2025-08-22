@@ -36,7 +36,7 @@ export class UsersController {
     return this.usersService.createUser(createUserDto);
   }
 
-  //@UseGuards(AccessTokenGuard)
+  //@UseGuards(AccessTokenGuard) in app module define as global
   @Post('create-many')
   public createManyUsers(@Body() createUserManyDto: CreateUserManyDto) {
     return this.usersService.createMany(createUserManyDto);

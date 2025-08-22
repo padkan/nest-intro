@@ -45,7 +45,7 @@ export class AccessTokenGuard implements CanActivate {
         this.jwtConfiguration,
       );
       request[REQUEST_USER_KEY] = payload;
-      console.log('User payload:', payload);
+      //console.log('User payload:', payload);
     } catch {
       throw new UnauthorizedException('Invalid access token');
     }
