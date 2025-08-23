@@ -37,6 +37,9 @@ export class CreateUserProvider {
       throw new BadRequestException('Email already exists');
     }
     //exception error
+    if (!createUserDto.password) {
+      throw new BadRequestException('Password is required');
+    }
     //create a user
     let newUser = this.userRepository.create({
       ...createUserDto,

@@ -18,8 +18,11 @@ export class SignInProvider {
     private readonly generateTokensProvider: GenerateTokensProvider,
   ) {}
   public async signIn(signInDto: SignInDto) {
+    if (!signInDto.password) {
+      throw new RequestTimeoutException('Password is required');
+    }
     const user = await this.usersService.findOneByEmail(signInDto.email);
-    if (!user) {
+    if (!user || !user.password) {
       throw new RequestTimeoutException('User not found');
     }
     let isEqual: boolean = false;

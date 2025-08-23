@@ -1,3 +1,4 @@
+import { FindOneByGoogleIdProvider } from './find-one-by-google-id.provider';
 import { FindOneUserByEmailProvider } from './find-one-user-by-email.provider';
 import { DataSource, Repository } from 'typeorm';
 import { AuthService } from './../../auth/providers/auth.service';
@@ -19,6 +20,8 @@ import { CreateUserDto } from '../dtos/create-user.dto';
 import { UsersCreateManyProvider } from './users-create-many.provider';
 import { CreateUserManyDto } from '../dtos/create-user-many.dto';
 import { CreateUserProvider } from './create-user.provider';
+import { CreateGoogleUserProvider } from './create-google-user.provider';
+import { GoogleUser } from '../interfaces/google-user.interface';
 
 @Injectable()
 export class UsersService {
@@ -36,6 +39,8 @@ export class UsersService {
     private readonly usersCreateManyProvider: UsersCreateManyProvider,
     private readonly createUserProvider: CreateUserProvider,
     private readonly findOneUserByEmailProvider: FindOneUserByEmailProvider,
+    private readonly findOneByGoogleIdProvider: FindOneByGoogleIdProvider,
+    private readonly createGoogleUserProvider: CreateGoogleUserProvider,
   ) {}
 
   public async createUser(createUserDto: CreateUserDto) {
@@ -104,5 +109,15 @@ export class UsersService {
 
   public async findOneByEmail(email: string): Promise<User | null | undefined> {
     return this.findOneUserByEmailProvider.findOneByEmail(email);
+  }
+
+  public async findOneByGoogleId(
+    googleId: string,
+  ): Promise<User | null | undefined> {
+    return this.findOneByGoogleIdProvider.findOneByGoogleId(googleId);
+  }
+
+  public async createGoogleUser(googleUser: GoogleUser): Promise<User> {
+    return await this.createGoogleUserProvider.createGoogleUser(googleUser);
   }
 }
