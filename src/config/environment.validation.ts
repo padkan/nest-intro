@@ -14,5 +14,6 @@ export default Joi.object({
   JWT_SECRET: Joi.string().required(),
   JWT_TOKEN_AUDIENCE: Joi.string().default('nestjs-intro'),
   JWT_TOKEN_ISSUER: Joi.string().default('nestjs-intro'),
-  JWT_TOKEN_EXPIRES_IN: Joi.number().default('1d'),
+  JWT_TOKEN_EXPIRES_IN: Joi.number().default(3600),
+  JWT_REFRESH_TOKEN_EXPIRES_IN: Joi.number().default(86400),
 });
