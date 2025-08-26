@@ -17,4 +17,8 @@ export default Joi.object({
   JWT_TOKEN_EXPIRES_IN: Joi.number().default(3600),
   JWT_REFRESH_TOKEN_EXPIRES_IN: Joi.number().default(86400),
   API_VERSION: Joi.string().required(),
+  AWS_PUBLIC_BUCKET_NAME: Joi.string().required(),
+  MAIL_HOST: Joi.string().required(),
+  SMTP_USERNAME: Joi.string().required(),
+  SMTP_PASSWORD: Joi.string().required(),
 });
