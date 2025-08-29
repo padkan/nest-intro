@@ -14,8 +14,8 @@ import {
 } from '@nestjs/common';
 import { User } from '../user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ConfigService, ConfigType } from '@nestjs/config';
-import profileConfig, { ProfileConfigType } from '../config/profile.config';
+//import { ConfigService, ConfigType } from '@nestjs/config';
+//import profileConfig, { ProfileConfigType } from '../config/profile.config';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { UsersCreateManyProvider } from './users-create-many.provider';
 import { CreateUserManyDto } from '../dtos/create-user-many.dto';
@@ -31,9 +31,9 @@ export class UsersService {
     // inject user repository
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-    private configService: ConfigService,
-    @Inject(profileConfig.KEY)
-    private readonly profileConfig: ProfileConfigType,
+    // private configService: ConfigService,
+    // @Inject(profileConfig.KEY)
+    //private readonly profileConfig: ProfileConfigType,
 
     private readonly datasource: DataSource,
     private readonly usersCreateManyProvider: UsersCreateManyProvider,
