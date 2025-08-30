@@ -21,6 +21,8 @@
     "removeComments": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true
+    "incremental": true,
+
+    "isolatedModules": true
   }
 }
