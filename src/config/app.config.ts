@@ -11,4 +11,6 @@ export default registerAs('appConfig', () => ({
   mailHost: process.env.MAIL_HOST,
   smtpUsername: process.env.SMTP_USERNAME,
   smtpPassword: process.env.SMTP_PASSWORD,
+  telegramBotToken: process.env.TELEGRAM_BOT_TOKEN,
+  telegramChatId: process.env.TELEGRAM_CHAT_ID,
 }));

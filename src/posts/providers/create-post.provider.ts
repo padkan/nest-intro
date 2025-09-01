@@ -8,7 +8,7 @@ import { CreatePostDto } from '../dtos/create-post-dto';
 import { Tag } from 'src/tags/tag.entity';
 import { UsersService } from 'src/users/providers/users.service';
 import { TagsService } from 'src/tags/providers/tags.service';
-import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
+import type { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 import { InjectRepository } from '@nestjs/typeorm/dist/common/typeorm.decorators';
 import { Repository } from 'typeorm';
 import { Post } from '../post.entity';

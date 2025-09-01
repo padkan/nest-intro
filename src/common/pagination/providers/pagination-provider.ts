@@ -3,7 +3,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { PaginationQueryDto } from '../dtos/pagination-query.dto';
 import { Repository, ObjectLiteral } from 'typeorm';
 import { REQUEST } from '@nestjs/core';
-import { Request } from 'express';
+import type { Request } from 'express';
 
 @Injectable()
 export class PaginationProvider {

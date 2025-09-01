@@ -1,9 +1,9 @@
 import { Injectable, Inject } from '@nestjs/common';
 import jwtConfig from '../config/jwt.config';
-import { ConfigType } from '@nestjs/config';
+import type { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/users/user.entity';
-import { ActiveUserData } from '../interfaces/active-user-data.interface';
+import type { ActiveUserData } from '../interfaces/active-user-data.interface';
 
 @Injectable()
 export class GenerateTokensProvider {
@@ -22,7 +22,7 @@ export class GenerateTokensProvider {
   public async signToken<T>(userId: number, expiresIn: number, payload?: T) {
     return await this.jwtService.signAsync(
       {
-        email: userId,
+        sub: userId,
         ...payload,
       },
       {
@@ -40,6 +40,7 @@ export class GenerateTokensProvider {
         this.jwtConfiguration.accessTokenTtl,
         {
           email: user.email,
+          role: user.role,
         },
       ),
       this.signToken(user.id, this.jwtConfiguration.refreshTokenTtl),

@@ -8,8 +8,8 @@ import {
 import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import jwtConfig from '../../config/jwt.config';
-import { ConfigType } from '@nestjs/config/dist/types/config.type';
-import { Request } from 'express';
+import type { ConfigType } from '@nestjs/config';
+import type { Request } from 'express';
 import { REQUEST_USER_KEY } from '../../constants/auth.constants';
 import { JwtPayload } from 'src/auth/interfaces/jwt-payload.interface';
 

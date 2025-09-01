@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiHeaders, ApiOperation } from '@nestjs/swagger';
-import { Express } from 'express';
+import type { Express } from 'express';
 import * as multer from 'multer';
 import { UploadsService } from './providers/uploads.service';
 

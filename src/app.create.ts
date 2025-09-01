@@ -5,6 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 //import { DataResponseInterceptor } from './common/interceptors/data-response/data-response.interceptor';
 import { config as awsConfig } from 'aws-sdk';
 import { ConfigService } from '@nestjs/config';
+import { TelegramService } from './telegram/providers/telegram.service';
 
 export function appCreate(app: INestApplication) {
   app.useGlobalPipes(
@@ -46,6 +47,10 @@ export function appCreate(app: INestApplication) {
     },
     region: configService.get<string>('appConfig.awsRegion')!,
   });
+
+  // setup telegram logging
+  const telegramLogger = app.get(TelegramService);
+  app.useLogger(telegramLogger);
 
   // enable CORS
   app.enableCors();

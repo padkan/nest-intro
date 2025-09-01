@@ -1,3 +1,4 @@
 GET http://localhost:3000/users/
 
-GET http://localhost:3000/users/1/auth?c=10&page=20
+GET http://localhost:3000/users/1/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhZWVkQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTY2NjMxNjAsImV4cCI6MTc1NjY2Njc2MCwiYXVkIjoibG9jYWxob3N0OjMwMDAiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMCJ9.ozM3Pi_2Z7Nd5raIBbVwFq13IvhFs_mNe9jMtynZYZU

@@ -5,13 +5,13 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import jwtConfig from '../config/jwt.config';
-import { ConfigType } from '@nestjs/config';
+import type { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/users/user.entity';
 import { RefreshTokenDto } from '../dtos/refresh-token.dto';
 import { GenerateTokensProvider } from './generate-tokens.provider';
 import { UsersService } from 'src/users/providers/users.service';
-import { ActiveUserData } from '../interfaces/active-user-data.interface';
+import type { ActiveUserData } from '../interfaces/active-user-data.interface';
 
 @Injectable()
 export class RefreshTokensProvider {

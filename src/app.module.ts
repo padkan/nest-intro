@@ -21,6 +21,8 @@ import { AuthenticationGuard } from './auth/guards/authentication/authentication
 import { DataResponseInterceptor } from './common/interceptors/data-response/data-response.interceptor';
 import { UploadsModule } from './uploads/uploads.module';
 import { MailModule } from './mail/mail.module';
+import { RolesGuard } from './auth/guards/roles/roles.guard';
+import { TelegramModule } from './telegram/telegram.module';
 
 const ENV = process.env.NODE_ENV;
 // Main application module
@@ -59,6 +61,7 @@ const ENV = process.env.NODE_ENV;
     JwtModule.registerAsync(jwtConfig.asProvider()),
     UploadsModule,
     MailModule,
+    TelegramModule,
   ],
   controllers: [AppController],
   providers: [
@@ -73,6 +76,10 @@ const ENV = process.env.NODE_ENV;
       useClass: AuthenticationGuard,
     },
     AccessTokenGuard,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
     {
       provide: APP_INTERCEPTOR,
       useClass: DataResponseInterceptor,

@@ -1,1 +1,2 @@
-DELETE http://localhost:3000/posts?id=5
+DELETE http://localhost:3000/posts?id=12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsImVtYWlsIjoic2FlZWRAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTY2Njc0NTMsImV4cCI6MTc1NjY3MTA1MywiYXVkIjoibG9jYWxob3N0OjMwMDAiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMCJ9.bfQzjyeA65ArjVrKmHo5ZXY8gpsvOu81mxOhdjIeO3Y

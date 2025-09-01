@@ -8,6 +8,7 @@ import {
   Delete,
   ParseIntPipe,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { PostsService } from './providers/posts.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -15,7 +16,11 @@ import { CreatePostDto } from './dtos/create-post-dto';
 import { PatchPostDto } from './dtos/patch-post.dto';
 import { GetPostDto } from './dtos/get-post.dto';
 import { ActiveUser } from 'src/auth/decorators/active-user.decorator';
-import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
+import type { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
+import { AuthenticationGuard } from 'src/auth/guards/authentication/authentication.guard';
+import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { Role } from 'src/auth/enums/role.enum';
 
 @Controller('posts')
 @ApiTags('posts')
@@ -42,6 +47,7 @@ export class PostsController {
     @Body() createPostDto: CreatePostDto,
     @ActiveUser() user: ActiveUserData,
   ) {
+    console.log(user);
     return this.postsService.create(createPostDto, user);
   }
 
@@ -55,6 +61,9 @@ export class PostsController {
     return this.postsService.update(updatePostDto);
   }
 
+  @Roles(Role.User, Role.Editor)
+  // @UseGuards(RolesGuard)
+  //@UseGuards(AuthenticationGuard) // order is important
   @Delete()
   public deletePost(@Query('id', ParseIntPipe) id: number) {
     return this.postsService.delete(id);

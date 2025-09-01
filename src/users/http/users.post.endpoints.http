@@ -5,8 +5,8 @@ Content-Type: application/json
 {
     "firstName": "saeed",
     "lastName": "Pakp",
-    "email": "saeed2@sds.comm",
-    "password": "Pssword123"
+    "email": "saeed4@sds.comm",
+    "password": "Pssword123#"
 }
 
 POST http:localhost:3000/users/create-many

@@ -1,7 +1,7 @@
 import { Exclude } from 'class-transformer';
 import { Post } from 'src/posts/post.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-
+import { Role } from '../auth/enums/role.enum';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -36,6 +36,19 @@ export class User {
   })
   @Exclude()
   password?: string;
+
+  @Column({
+    type: 'enum',
+    enum: Role,
+    default: Role.User,
+  })
+  role!: Role;
+
+  @Column({
+    type: 'boolean',
+    default: false,
+  })
+  active!: boolean;
 
   @Column({
     type: 'varchar',

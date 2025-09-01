@@ -17,7 +17,9 @@ export class FindOneUserByEmailProvider {
   public async findOneByEmail(email: string): Promise<User | null | undefined> {
     let user: User | undefined = undefined;
     try {
-      const result = await this.userRepository.findOne({ where: { email } });
+      const result = await this.userRepository.findOne({
+        where: { email, active: true },
+      });
       user = result ?? undefined; // convert null → undefined
     } catch (error) {
       throw new RequestTimeoutException(error, {

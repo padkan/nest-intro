@@ -14,6 +14,7 @@ import {
   Ip,
   UseInterceptors,
   ClassSerializerInterceptor,
+  SetMetadata,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { GetUsersParamDto } from './dtos/get-users-param.dto';
@@ -25,6 +26,10 @@ import { UseGuards } from '@nestjs/common';
 import { AccessTokenGuard } from 'src/auth/guards/access-token/access-token.guard';
 import { AuthType } from 'src/auth/enums/auth-type.enum';
 import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/auth/enums/role.enum';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
+import { AuthenticationGuard } from 'src/auth/guards/authentication/authentication.guard';
 
 @Controller('users')
 @ApiTags('users')
@@ -54,6 +59,10 @@ export class UsersController {
     return 'This action replaces a user';
   }
 
+  //@SetMetadata('roles', [Role.Admin])
+  // @Roles(Role.Admin, Role.Editor)
+  // @UseGuards(RolesGuard)
+  // @UseGuards(AuthenticationGuard) // order is important
   @Delete(':id')
   public deleteUser() {
     return 'This action removes a user';

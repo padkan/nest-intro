@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { appCreate } from './app.create';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {});
   // add middleware
   appCreate(app);
   // add global interceptors

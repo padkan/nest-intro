@@ -18,7 +18,7 @@ import { PatchPostDto } from '../dtos/patch-post.dto';
 import { GetPostDto } from '../dtos/get-post.dto';
 import { PaginationProvider } from 'src/common/pagination/providers/pagination-provider';
 import { Paginated } from 'src/common/pagination/interfaces/paginated.interface';
-import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
+import type { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 
 @Injectable()
 export class PostsService {
@@ -96,7 +96,10 @@ export class PostsService {
     //   relations: ['post'],
     // });
     // console.log('inversePost', inversePost);
-    await this.postsRepository.delete(id);
+    const result = await this.postsRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Post with id ${id} not found`);
+    }
     return { deleted: true, id };
   }
 
