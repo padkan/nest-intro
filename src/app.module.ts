@@ -86,4 +86,14 @@ const ENV = process.env.NODE_ENV;
     },
   ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private readonly configService: ConfigService) {
+    console.log('DB Config from NestJS:', {
+      host: configService.get<string>('database.host'),
+      port: configService.get<number>('database.port'),
+      username: configService.get<string>('database.username'),
+      password: configService.get<string>('database.password'),
+      database: configService.get<string>('database.name'),
+    });
+  }
+}
