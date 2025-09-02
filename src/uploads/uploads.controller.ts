@@ -53,7 +53,6 @@ export class UploadsController {
 
   @Delete('file')
   @HttpCode(200) // Set HTTP status code to 200 OK
-  @Auth(AuthType.None)
   public async deleteFile(@Query('path') path: string) {
     this.logger.warn(`Files Deleted: ${path}`);
     await this.uploadsService.deleteFile(path);
