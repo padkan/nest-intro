@@ -17,15 +17,22 @@ import { PatchPostDto } from './dtos/patch-post.dto';
 import { GetPostDto } from './dtos/get-post.dto';
 import { ActiveUser } from 'src/auth/decorators/active-user.decorator';
 import type { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
-import { AuthenticationGuard } from 'src/auth/guards/authentication/authentication.guard';
+//import { AuthenticationGuard } from 'src/auth/guards/authentication/authentication.guard';
 import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/enums/role.enum';
+import { Inject } from '@nestjs/common';
+import { Logger } from 'winston';
 
 @Controller('posts')
 @ApiTags('posts')
 export class PostsController {
-  constructor(private readonly postsService: PostsService) {}
+  constructor(
+    private readonly postsService: PostsService,
+    @Inject('winston') private readonly logger: Logger,
+  ) {
+    this.logger.warn('PostsController initialized');
+  }
 
   @Get('{/:userId}')
   public getPosts(
@@ -62,7 +69,7 @@ export class PostsController {
   }
 
   @Roles(Role.User, Role.Editor)
-  // @UseGuards(RolesGuard)
+  @UseGuards(RolesGuard)
   //@UseGuards(AuthenticationGuard) // order is important
   @Delete()
   public deletePost(@Query('id', ParseIntPipe) id: number) {

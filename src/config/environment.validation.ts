@@ -23,4 +23,6 @@ export default Joi.object({
   SMTP_PASSWORD: Joi.string().required(),
   TELEGRAM_BOT_TOKEN: Joi.string().required(),
   TELEGRAM_CHAT_ID: Joi.string().required(),
+  LOG_FILE_NAME: Joi.string().required(),
+  LOG_FILE_PATH: Joi.string().required(),
 });

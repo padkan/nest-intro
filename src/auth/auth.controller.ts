@@ -4,6 +4,8 @@ import { SignInDto } from './dtos/signin.dto';
 import { Auth } from './decorators/auth.decorator';
 import { AuthType } from 'src/auth/enums/auth-type.enum';
 import { RefreshTokenDto } from './dtos/refresh-token.dto';
+import { Roles } from './decorators/roles.decorator';
+import { Role } from 'src/auth/enums/role.enum';
 
 @Controller('auth')
 export class AuthController {

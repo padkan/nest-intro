@@ -22,7 +22,10 @@ import { DataResponseInterceptor } from './common/interceptors/data-response/dat
 import { UploadsModule } from './uploads/uploads.module';
 import { MailModule } from './mail/mail.module';
 import { RolesGuard } from './auth/guards/roles/roles.guard';
-import { TelegramModule } from './telegram/telegram.module';
+
+import { WinstonModule } from 'nest-winston';
+
+import winston from 'winston';
 
 const ENV = process.env.NODE_ENV;
 // Main application module
@@ -51,6 +54,30 @@ const ENV = process.env.NODE_ENV;
         database: configService.get<string>('database.name'),
       }),
     }),
+    WinstonModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        transports: [
+          // Define your transports here, e.g., Console, File, HTTP, etc.
+          new winston.transports.Console({
+            format: winston.format.combine(
+              winston.format.colorize(),
+              winston.format.timestamp(),
+              winston.format.printf((info) => {
+                return `${info.timestamp} [${info.level}]: ${info.message}`;
+              }),
+            ),
+          }),
+          new winston.transports.File({
+            filename:
+              (configService.get<string>('appConfig.logFilePath') ??
+                './logs/') +
+              (configService.get<string>('appConfig.logFileName') ?? 'app.log'),
+          }),
+        ],
+      }),
+    }),
     UsersModule,
     PostsModule,
     AuthModule,
@@ -61,7 +88,6 @@ const ENV = process.env.NODE_ENV;
     JwtModule.registerAsync(jwtConfig.asProvider()),
     UploadsModule,
     MailModule,
-    TelegramModule,
   ],
   controllers: [AppController],
   providers: [
@@ -76,10 +102,10 @@ const ENV = process.env.NODE_ENV;
       useClass: AuthenticationGuard,
     },
     AccessTokenGuard,
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
-    },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: RolesGuard,
+    // },
     {
       provide: APP_INTERCEPTOR,
       useClass: DataResponseInterceptor,

@@ -3,9 +3,8 @@ import { INestApplication } from '@nestjs/common';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 //import { DataResponseInterceptor } from './common/interceptors/data-response/data-response.interceptor';
-import { config as awsConfig } from 'aws-sdk';
+import { S3Client } from '@aws-sdk/client-s3';
 import { ConfigService } from '@nestjs/config';
-import { TelegramService } from './telegram/providers/telegram.service';
 
 export function appCreate(app: INestApplication) {
   app.useGlobalPipes(
@@ -38,19 +37,18 @@ export function appCreate(app: INestApplication) {
   // setup aws sdk for s3 image upload
   const configService = app.get(ConfigService);
 
-  awsConfig.update({
+  // Create S3Client instance
+  const s3Client = new S3Client({
+    region: configService.get<string>('appConfig.awsRegion'),
     credentials: {
       accessKeyId: configService.get<string>('appConfig.awsAccessKeyId')!,
       secretAccessKey: configService.get<string>(
         'appConfig.awsSecretAccessKey',
       )!,
     },
-    region: configService.get<string>('appConfig.awsRegion')!,
   });
 
   // setup telegram logging
-  const telegramLogger = app.get(TelegramService);
-  app.useLogger(telegramLogger);
 
   // enable CORS
   app.enableCors();

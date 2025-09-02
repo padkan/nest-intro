@@ -22,6 +22,7 @@
     "doc": "npx @compodoc/compodoc -p tsconfig.json -s --port 3001 --watch -d ./documentation"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.879.0",
     "@compodoc/compodoc": "^1.1.25",
     "@nestjs-modules/mailer": "^1.6.1",
     "@nestjs/common": "^11.0.1",
@@ -32,7 +33,6 @@
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/swagger": "^11.2.0",
     "@nestjs/typeorm": "^11.0.0",
-    "aws-sdk": "^2.1643.0",
     "axios": "^1.11.0",
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
@@ -40,13 +40,15 @@
     "ejs": "^3.1.10",
     "google-auth-library": "^9.11.0",
     "joi": "^18.0.0",
+    "nest-winston": "^1.10.2",
     "node-telegram-bot-api": "^0.66.0",
     "nodemailer": "^6.9.13",
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.25",
-    "uuid": "^11.1.0"
+    "uuid": "^11.1.0",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
