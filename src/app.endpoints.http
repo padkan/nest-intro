@@ -1,2 +1,3 @@
 ## Get Request For App controller
-GET http://localhost:3000/
+GET http://localhost:3000
+Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsImVtYWlsIjoic2FlZWRAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTY5NDAzNzksImV4cCI6MTc1Njk0Mzk3OSwiYXVkIjoibG9jYWxob3N0OjMwMDAiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMCJ9.yGUowpEVcDR1a8jSMgjNiijuYFOoePdCjZ9URJfvOtc;

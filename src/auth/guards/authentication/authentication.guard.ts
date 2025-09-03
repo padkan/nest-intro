@@ -1,4 +1,5 @@
 import { AccessTokenGuard } from './../access-token/access-token.guard';
+import { AccessTokenCookieGuard } from './../access-token-cookie/access-token-cookie.guard';
 import {
   CanActivate,
   ExecutionContext,
@@ -18,10 +19,12 @@ export class AuthenticationGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
     private readonly accessTokenGuard: AccessTokenGuard,
+    private readonly accessTokenCookieGuard: AccessTokenCookieGuard,
   ) {
     this.authTypeGuardMap = {
       [AuthType.Bearer]: [this.accessTokenGuard],
       [AuthType.None]: [{ canActivate: () => true }],
+      [AuthType.Cookie]: [this.accessTokenCookieGuard],
     };
   }
 

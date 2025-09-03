@@ -26,6 +26,7 @@ import { RolesGuard } from './auth/guards/roles/roles.guard';
 import { WinstonModule } from 'nest-winston';
 
 import winston from 'winston';
+import { AccessTokenCookieGuard } from './auth/guards/access-token-cookie/access-token-cookie.guard';
 
 const ENV = process.env.NODE_ENV;
 // Main application module
@@ -102,6 +103,7 @@ const ENV = process.env.NODE_ENV;
       useClass: AuthenticationGuard,
     },
     AccessTokenGuard,
+    AccessTokenCookieGuard,
     // {
     //   provide: APP_GUARD,
     //   useClass: RolesGuard,

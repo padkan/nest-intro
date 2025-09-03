@@ -12,6 +12,7 @@ import type { ConfigType } from '@nestjs/config';
 import type { Request } from 'express';
 import { REQUEST_USER_KEY } from '../../constants/auth.constants';
 import { JwtPayload } from 'src/auth/interfaces/jwt-payload.interface';
+import { Logger } from 'winston';
 
 @Injectable()
 export class AccessTokenGuard implements CanActivate {
@@ -25,9 +26,11 @@ export class AccessTokenGuard implements CanActivate {
      */
     @Inject(jwtConfig.KEY)
     private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
+    @Inject('winston') private readonly logger: Logger,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    this.logger.info('Access token guard activated');
     // Extract the request from execution context
     const request = context.switchToHttp().getRequest<Request>();
     if (!request) {

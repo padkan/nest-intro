@@ -22,14 +22,14 @@ import { PatchUserDto } from './dtos/patch-user.dto';
 import { UsersService } from './providers/users.service';
 import { ApiTags, ApiQuery, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CreateUserManyDto } from './dtos/create-user-many.dto';
-import { UseGuards } from '@nestjs/common';
-import { AccessTokenGuard } from 'src/auth/guards/access-token/access-token.guard';
+// import { UseGuards } from '@nestjs/common';
+// import { AccessTokenGuard } from 'src/auth/guards/access-token/access-token.guard';
 import { AuthType } from 'src/auth/enums/auth-type.enum';
 import { Auth } from 'src/auth/decorators/auth.decorator';
-import { Role } from 'src/auth/enums/role.enum';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
-import { AuthenticationGuard } from 'src/auth/guards/authentication/authentication.guard';
+// import { Role } from 'src/auth/enums/role.enum';
+// import { Roles } from 'src/auth/decorators/roles.decorator';
+// import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
+// import { AuthenticationGuard } from 'src/auth/guards/authentication/authentication.guard';
 
 @Controller('users')
 @ApiTags('users')

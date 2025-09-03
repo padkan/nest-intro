@@ -12,6 +12,9 @@ import { GenerateTokensProvider } from './providers/generate-tokens.provider';
 import { RefreshTokensProvider } from './providers/refresh-tokens.provider';
 import { GoogleAuthenticationController } from './social/google-authentication.controller';
 import { GoogleAuthenticationService } from './social/providers/google-authentication.service';
+import { LogInProvider } from './providers/log-in.provider';
+import { JwtCookieStrategy } from './strategies/jwt-cookie.strategy';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   controllers: [AuthController, GoogleAuthenticationController],
@@ -26,8 +29,11 @@ import { GoogleAuthenticationService } from './social/providers/google-authentic
     GenerateTokensProvider,
     RefreshTokensProvider,
     GoogleAuthenticationService,
+    LogInProvider,
+    JwtCookieStrategy,
   ],
   imports: [
+    PassportModule,
     forwardRef(() => UsersModule),
     ConfigModule.forFeature(jwtConfig),
     JwtModule.registerAsync(jwtConfig.asProvider()),
